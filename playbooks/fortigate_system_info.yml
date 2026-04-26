@@ -1,0 +1,26 @@
+---
+- name: Get FortiGate System Status
+  hosts: fortigates
+  connection: httpapi
+  gather_facts: no
+  collections:
+    -  fortinet.fortios
+    
+  vars_files:
+    - ../host_vars/Forti-FW-1.yml
+    
+  tasks:
+    - name: Retire system Status
+      fortios_monitor_fact:
+        access_token: "{{ fortios_api_token }}"
+        selector: 'system_status'
+      register: result
+      
+    - name: Display System Information
+      debug:
+        msg:
+          - "Hostname: {{ result.meta.results.hostname }}"
+          - "Version: {{ result.meta.version }}"
+          - "Serial: {{ result.meta.serial }}"
+          - "Model: {{ result.meta.results.model_name }} {{ result.meta.results.model_number }}"
+

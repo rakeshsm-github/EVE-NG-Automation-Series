@@ -1,0 +1,46 @@
+devices:
+  vIOS_R1:
+    alias: vIOS_R1
+    connections:
+      cli:
+        ip: 192.168.1.71
+        protocol: ssh
+    credentials:
+      default:
+        password: '%ENV{DEF_PYATS_PASS}'
+        username: '%ENV{DEF_PYATS_USER}'
+    os: ios
+    platform: ios
+    type: IOSv
+  vIOS_R2:
+    alias: vIOS_R2
+    connections:
+      cli:
+        ip: 192.168.1.72
+        protocol: ssh
+    credentials:
+      default:
+        password: '%ENV{DEF_PYATS_PASS}'
+        username: '%ENV{DEF_PYATS_USER}'
+    os: ios
+    platform: ios
+    type: IOSv
+  vIOS_R3:
+    alias: vIOS_R3
+    connections:
+      cli:
+        ip: 192.168.1.73
+        protocol: ssh
+    credentials:
+      default:
+        password: '%ENV{DEF_PYATS_PASS}'
+        username: '%ENV{DEF_PYATS_USER}'
+    os: ios
+    platform: ios
+    type: IOSv
+testbed:
+  credentials:
+    default:
+      password: '%ENV{DEF_PYATS_PASS}'
+      username: '%ENV{DEF_PYATS_USER}'
+topology: {}

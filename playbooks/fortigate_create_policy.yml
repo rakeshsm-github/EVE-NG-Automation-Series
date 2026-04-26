@@ -1,0 +1,55 @@
+---
+- name: Create Firewall Policy on FortiGate
+  hosts: fortigates
+  connection: httpapi
+  gather_facts: no
+
+  collections:
+    - fortinet.fortios
+
+  vars_files:
+    - ../host_vars/Forti-FW-1.yml
+
+  tasks:
+    - name: Create outbound firewall policy
+      fortios_firewall_policy:
+        access_token: "{{ fortios_api_token }}"
+        state: present
+        vdom: "root"
+        firewall_policy:
+          policyid: 100
+          name: "Internal_to_Internet"
+
+          srcintf:
+            - name: "port2"
+
+          dstintf:
+            - name: "port1"
+
+          srcaddr:
+            - name: "all"
+
+          dstaddr:
+            - name: "all"
+
+          service:
+            - name: "ALL"
+
+          action: "accept"
+          schedule: "always"
+          nat: "enable"
+          comments: "Created by Ansible - Allow internal users to internet"
+
+      register: policy_result
+    - name: Display result
+      debug:
+        msg: >
+          Firewall policy created successfully
+          with name {{
+            (policy_result.meta.results[0].name
+            | default(policy_result.results[0].name)
+            | default('UNKNOWN'))
+           }}
+    - name: Display result
+      debug:
+
