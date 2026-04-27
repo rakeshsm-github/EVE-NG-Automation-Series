@@ -1,2 +1,15 @@
+# ANSIBLE
 /ansible_venv/
 *.retry
+
+# PHTHON
+__pycache__/
+*.py[cod]
+*.venv/
+venv/
+
+# Sensitive files
+inventory/hosts
+group_vars/vault.yml
+*vault*
+
