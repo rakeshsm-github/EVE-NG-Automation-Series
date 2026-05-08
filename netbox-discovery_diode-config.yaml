@@ -1,0 +1,71 @@
+user@NETBOX:~/netbox-discovery/orb-agent$ cat config.yaml
+# ORB Agent Configuration for Netbox Discovery
+
+orb:
+  config_manager:
+    active: local
+
+  backends:
+    device_discovery:
+    network_discovery:
+
+    common:
+      diode:
+        target: grpc://localhost:8080/diode
+        client_id: orb-agent-efc66e8d6abe1f9e
+        client_secret: "G/TfHOYCVwhuEPUz5EgOs+Lg8/8Bk/6CboUWbEH9FM4="
+        agent_name: orb-netbox-discovery
+        tls:
+          insecure: true
+
+      agent_label:
+        environment: lab
+        location: networkcoder
+
+  policies:
+    device_discovery:
+      cisco_routers:
+        config:
+          schedule: "*/2 * * * *"
+          defaults:
+            site: Main_DC
+            tenant: NetworkCoder-LAB
+            region: USA
+            role: Router
+            status: active
+            location: vlab
+            rack: rack-1
+
+        scope:
+          - driver: ios
+            hostname: 192.168.1.71
+            username: ansible
+            password: ansible@123
+            optional_args:
+              enable_password: ansible@123
+
+          - driver: ios
+            hostname: 192.168.1.72
+            username: ansible
+            password: ansible@123
+            optional_args:
+              enable_password: ansible@123
+
+          - driver: ios
+            hostname: 192.168.1.73
+            username: ansible
+            password: ansible@123
+            optional_args:
+              enable_password: ansible@123
+
+  network_discovery:
+    lab_network_scan:
+      config:
+        schedule: "*/2 * * * *"
+        timeout: 10
+      scope:
+        targets:
+          - 192.168.1.0/24
+
+logs:
+  level: info
