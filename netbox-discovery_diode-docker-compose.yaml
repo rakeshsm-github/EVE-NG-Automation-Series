@@ -1,0 +1,11 @@
+user@NETBOX:~/netbox-discovery/orb-agent$ cat  docker-compose.yml
+services:
+  orb-agent:
+    image: netboxlabs/orb-agent:latest
+    container_name: orb-agent
+    restart: unless-stopped
+    network_mode: host
+    command: run --config /config.yaml
+    volumes:
+      - ./config.yaml:/config.yaml:ro
+
